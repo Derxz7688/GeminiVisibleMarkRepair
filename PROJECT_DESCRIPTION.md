@@ -1,7 +1,7 @@
 # Gemini / Omni Visible Mark Repair Tool
 
-This is a local Windows desktop tool for repairing the visible Gemini / Omni /
-Veo corner mark in videos that the user is authorized to edit.
+This is a local Windows desktop tool for repairing the visible Gemini / Omni
+corner mark in videos that the user is authorized to edit.
 
 It only works on the visible corner mark. It does not detect, modify, remove, or
 interfere with invisible SynthID metadata or watermarking.
@@ -26,3 +26,9 @@ The final single EXE bundles:
 The source archive intentionally keeps source and packaging files clean and does
 not include experimental logs, review outputs, processed videos, or old job
 directories.
+
+## Validation Scope
+
+Version 1.0 was validated with landscape Gemini visible-mark videos. Veo sample
+videos, portrait layouts, and non-standard mark positions were not validated in
+this release and should be treated as experimental compatibility only.

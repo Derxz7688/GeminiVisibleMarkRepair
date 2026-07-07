@@ -10,3 +10,7 @@ release package bundles third-party runtime components documented in
 This project is intended only for videos the user is authorized to edit. It
 does not detect, remove, or modify Google SynthID or any other invisible
 provenance watermark.
+
+Version 1.0 was validated with landscape Gemini visible-mark videos. Other
+layouts or Veo samples may work through the upstream runtime, but are not
+claimed as validated support in this release.
