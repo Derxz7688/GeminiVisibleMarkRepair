@@ -1,15 +1,26 @@
 # Gemini 去水印单文件便携版 v1.0
 
+[在线展示页 / Live Demo Page](https://derxz7688.github.io/GeminiVisibleMarkRepair/)
+
 ## 下载 / Download
 
 - `GeminiVisibleMarkRepair_Final_v1.0.zip`
 - 解压后双击 `GeminiVisibleMarkRepair.exe`
 - Extract and run `GeminiVisibleMarkRepair.exe`
 
-## 参考视频 / Reference Videos
+## 效果演示 / Demo
 
-- `reference-input-gemini-watermark.mp4`: 原始横屏 Gemini 可见角标参考视频 / source reference video.
-- `reference-output-gemini-repaired.mp4`: 修复后参考输出 / repaired reference output.
+### Before / 修复前
+
+<video src="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-input-gemini-watermark.mp4" controls width="100%"></video>
+
+[直接打开修复前视频 / Open before video](https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-input-gemini-watermark.mp4)
+
+### After / 修复后
+
+<video src="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-output-gemini-repaired.mp4" controls width="100%"></video>
+
+[直接打开修复后视频 / Open after video](https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-output-gemini-repaired.mp4)
 
 Both videos are 1280x720, 24 fps, 10.0s, H.264 + AAC.
 

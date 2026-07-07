@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gemini 去水印单文件便携版 v1.0</title>
+  <meta name="description" content="Gemini visible mark repair portable Windows tool.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07111f;
+      --panel: rgba(255, 255, 255, 0.075);
+      --panel-strong: rgba(255, 255, 255, 0.12);
+      --text: #eaf4ff;
+      --muted: #a8bad1;
+      --line: rgba(255, 255, 255, 0.16);
+      --accent: #7dd3fc;
+      --accent-2: #a78bfa;
+      --ok: #86efac;
+      --warn: #fde68a;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(125, 211, 252, 0.18), transparent 32rem),
+        radial-gradient(circle at 90% 12%, rgba(167, 139, 250, 0.18), transparent 32rem),
+        linear-gradient(160deg, #07111f 0%, #101827 55%, #050816 100%);
+      color: var(--text);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 56px 0 28px; }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+    .brand { font-weight: 800; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(36px, 7vw, 76px);
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+    }
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.7;
+    }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, #38bdf8, #8b5cf6);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 22px 60px rgba(56, 189, 248, 0.18);
+    }
+    .hero-card, .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 24px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(14px);
+    }
+    .hero-card { padding: 22px; }
+    .pill-grid { display: grid; gap: 12px; }
+    .pill {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .pill strong { display: block; margin-bottom: 4px; }
+    .pill span { color: var(--muted); font-size: 14px; }
+    section { padding: 42px 0; }
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+    h2 { margin: 0; font-size: clamp(28px, 4vw, 42px); letter-spacing: -0.035em; }
+    .sub { margin: 8px 0 0; color: var(--muted); line-height: 1.7; }
+    .videos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .video-card { padding: 16px; }
+    video {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin: 12px 2px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card { padding: 20px; }
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .note {
+      border-left: 4px solid var(--warn);
+      padding: 16px 18px;
+      background: rgba(253, 230, 138, 0.1);
+      border-radius: 16px;
+      color: #fff7d6;
+      line-height: 1.7;
+    }
+    footer {
+      padding: 30px 0 54px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      margin-top: 24px;
+    }
+    @media (max-width: 820px) {
+      .hero, .videos, .grid-3 { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; margin-bottom: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav class="nav">
+        <div class="brand">Gemini Visible Mark Repair</div>
+        <div class="nav-links">
+          <a href="https://github.com/Derxz7688/GeminiVisibleMarkRepair">GitHub</a>
+          <a href="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/tag/v1.0.0">Release</a>
+          <a href="#demo">Demo</a>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <div>
+          <div class="eyebrow">v1.0 · Windows · 单文件便携版</div>
+          <h1>Gemini 去水印单文件便携版</h1>
+          <p class="lead">
+            本机修复 Gemini / Omni 视频画面里的可见角标区域。适合你有权编辑的视频素材；
+            不检测、不移除、不修改 SynthID 或任何不可见来源标识。
+          </p>
+          <p class="lead">
+            Local Windows portable tool for repairing the visible Gemini / Omni corner mark.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/GeminiVisibleMarkRepair_Final_v1.0.zip">下载 v1.0 / Download</a>
+            <a class="btn" href="https://github.com/Derxz7688/GeminiVisibleMarkRepair">查看源码 / Source</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="pill-grid">
+            <div class="pill"><strong>已实测 / Validated</strong><span>横屏 Gemini 可见角标视频</span></div>
+            <div class="pill"><strong>实验性 / Experimental</strong><span>Veo、竖屏、非标准角标位置</span></div>
+            <div class="pill"><strong>SynthID</strong><span>不检测、不修改、不移除</span></div>
+            <div class="pill"><strong>输出 / Output</strong><span>尽量保留分辨率、帧率、时长、帧数和音轨</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="demo">
+      <div class="wrap">
+        <div class="section-title">
+          <div>
+            <h2>效果演示 / Demo</h2>
+            <p class="sub">两个参考视频均为 1280x720、24 fps、10 秒、H.264 + AAC，可直接播放对比。</p>
+          </div>
+        </div>
+        <div class="videos">
+          <article class="card video-card">
+            <video controls preload="metadata" src="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-input-gemini-watermark.mp4"></video>
+            <div class="caption">
+              <strong>Before / 修复前</strong>
+              <a href="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-input-gemini-watermark.mp4">打开视频</a>
+            </div>
+          </article>
+          <article class="card video-card">
+            <video controls preload="metadata" src="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-output-gemini-repaired.mp4"></video>
+            <div class="caption">
+              <strong>After / 修复后</strong>
+              <a href="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-output-gemini-repaired.mp4">打开视频</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-title">
+          <div>
+            <h2>功能亮点 / Highlights</h2>
+            <p class="sub">为不习惯命令行的使用方式做了桌面封装，底层仍保留可审计的脚本和来源说明。</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card"><h3>单文件启动</h3><p>解压后双击 EXE 使用，首次运行自动释放内置运行时。</p></article>
+          <article class="card"><h3>本机处理</h3><p>视频文件只在本机处理，不上传到外部服务。</p></article>
+          <article class="card"><h3>自动分段</h3><p>超过上游预览引擎帧数限制时自动分段、修复、拼接。</p></article>
+          <article class="card"><h3>音轨保留</h3><p>输出尽量保持原始分辨率、帧率、时长、帧数和音轨。</p></article>
+          <article class="card"><h3>来源记录</h3><p>输出 `.provenance.json`，记录处理说明与参数。</p></article>
+          <article class="card"><h3>边界清楚</h3><p>仅处理可见角标，不提供 SynthID 绕过能力。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="note">
+          <strong>使用边界 / Usage boundary:</strong>
+          请只处理你有权编辑的视频。v1.0 已实测横屏 Gemini 可见角标；Veo、竖屏、非标准位置和复杂遮挡场景尚未完成实测，请视为实验性兼容范围。
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 · Gemini Visible Mark Repair Portable</span>
+    </div>
+  </footer>
+</body>
+</html>
