@@ -26,21 +26,14 @@
 
 ## 效果演示 / Demo
 
-> 如果 GitHub README 内嵌视频没有自动播放，请打开 [在线展示页](https://derxz7688.github.io/GeminiVisibleMarkRepair/) 查看。
->
-> If the embedded videos do not play inside the README, open the [live demo page](https://derxz7688.github.io/GeminiVisibleMarkRepair/).
+GitHub README 会过滤 `<video>` 标签，所以首页使用动态 GIF 直接展示效果；下方同时提供 MP4 高清直达链接。
 
-### Before / 修复前
+GitHub filters `<video>` tags in README files, so this page uses animated GIF previews and keeps direct MP4 links below.
 
-<video src="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-input-gemini-watermark.mp4" controls width="100%"></video>
-
-[直接打开修复前视频 / Open before video](https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-input-gemini-watermark.mp4)
-
-### After / 修复后
-
-<video src="https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-output-gemini-repaired.mp4" controls width="100%"></video>
-
-[直接打开修复后视频 / Open after video](https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-output-gemini-repaired.mp4)
+| Before / 修复前 | After / 修复后 |
+| --- | --- |
+| ![Before: visible Gemini mark](docs/media/before-gemini-watermark.gif) | ![After: repaired visible mark](docs/media/after-gemini-repaired.gif) |
+| [打开 MP4 / Open MP4](https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-input-gemini-watermark.mp4) | [打开 MP4 / Open MP4](https://github.com/Derxz7688/GeminiVisibleMarkRepair/releases/download/v1.0.0/reference-output-gemini-repaired.mp4) |
 
 参考视频参数 / Reference video specs: `1280x720`, `24 fps`, `10.0s`, `H.264 + AAC`.
 
