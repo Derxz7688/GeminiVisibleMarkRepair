@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gemini / Omni 可见角标修复工具</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif}*{box-sizing:border-box}body{margin:0;background:#09101a;color:#eef5ff}
+main{max-width:1040px;margin:auto;padding:30px 20px}h1{font-size:26px;margin:0 0 8px}.sub{color:#9db0c8;margin-bottom:24px}
+.card{background:#111b29;border:1px solid #26364d;border-radius:14px;padding:20px;margin:16px 0}.drop{border:2px dashed #45617e;border-radius:12px;padding:35px;text-align:center;cursor:pointer}
+.drop.over{border-color:#38d7bd;background:#102b2b}button{border:0;border-radius:9px;padding:11px 18px;background:#3bd4bd;color:#061713;font-weight:700;cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}progress{width:100%;height:14px;margin:16px 0}
+pre{white-space:pre-wrap;max-height:280px;overflow:auto;background:#07101b;padding:14px;border-radius:9px;color:#b8c9db}video{width:100%;border-radius:10px;background:#000;margin-top:12px}.hidden{display:none}.ok{color:#50e3a4}.bad{color:#ff8191}
+</style>
+<main>
+<h1>Gemini / Omni 可见角标修复工具</h1>
+<div class="sub">文件仅在本机处理；工具只修复可见角标，不检测或修改 SynthID。</div>
+<section class="card">
+  <div id="drop" class="drop">拖入视频，或点击选择文件<input id="file" type="file" accept="video/*" hidden></div>
+  <p id="selected">尚未选择视频</p>
+  <div class="row"><button id="run" disabled>开始修复</button><span id="status"></span></div>
+  <progress id="progress" value="0" max="100"></progress>
+</section>
+<section class="card"><strong>处理日志</strong><pre id="log">等待任务...</pre></section>
+<section id="result" class="card hidden"><strong class="ok">修复完成</strong><video id="video" controls></video><p><a id="download"><button>下载修复后视频</button></a></p></section>
+</main>
+<script>
+let file,jobId,timer;const drop=document.querySelector('#drop'),picker=document.querySelector('#file'),run=document.querySelector('#run'),status=document.querySelector('#status'),progress=document.querySelector('#progress'),log=document.querySelector('#log');
+function select(f){if(!f)return;file=f;document.querySelector('#selected').textContent=f.name+' · '+(f.size/1048576).toFixed(1)+' MB';run.disabled=false}
+drop.onclick=()=>picker.click();picker.onchange=()=>select(picker.files[0]);drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};drop.ondragleave=()=>drop.classList.remove('over');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');select(e.dataTransfer.files[0])};
+async function poll(){const r=await fetch('/api/jobs/'+jobId),j=await r.json();status.textContent=j.state;log.textContent=j.logs||'处理中...';log.scrollTop=log.scrollHeight;if(j.state==='processing'){progress.value=Math.min(95,progress.value+2);return}clearInterval(timer);run.disabled=false;if(j.state==='completed'){progress.value=100;status.textContent='修复完成';document.querySelector('#result').classList.remove('hidden');document.querySelector('#video').src='/api/jobs/'+jobId+'/video';document.querySelector('#download').href='/api/jobs/'+jobId+'/download'}else{status.className='bad';status.textContent='处理失败'}}
+run.onclick=async()=>{run.disabled=true;status.className='';status.textContent='正在读取视频...';progress.value=5;document.querySelector('#result').classList.add('hidden');try{let r=await fetch('/api/upload',{method:'POST',headers:{'x-filename':encodeURIComponent(file.name)},body:file});let j=await r.json();if(!r.ok)throw new Error(j.error||'上传失败');jobId=j.id;status.textContent='正在修复...';progress.value=10;r=await fetch('/api/jobs/'+jobId+'/process',{method:'POST'});j=await r.json();if(!r.ok)throw new Error(j.error||'启动失败');timer=setInterval(poll,1000);poll()}catch(error){run.disabled=false;status.className='bad';status.textContent=error.message}};
+</script></html>
